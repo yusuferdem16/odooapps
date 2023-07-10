@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_leasing_customer_tree" model="ir.ui.view">
+        <field name="name">leasing.customer.tree</field>
+        <field name="model">leasing.customer</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" string="Customer"/>
+                <field name="ref"/>
+                <field name="age"/>
+                <field name="gender"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <record id="view_leasing_customer_form" model="ir.ui.view">
+        <field name="name">leasing.customer.form</field>
+        <field name="model">leasing.customer</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="date_of_birth"/>
+                            <field name="age"/>
+                        </group>
+                        <group>
+                            <field name="ref"/>
+                            <field name="gender"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <!-- Chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="view_leasing_customer_search" model="ir.ui.view">
+        <field name="name">leasing.customer.search</field>
+        <field name="model">leasing.customer</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Customer Name"
+                       filter_domain="['|',('name','ilike',self),('ref','ilike',self)]"/>
+                <field name="age"/>
+                <field name="ref"/>
+                <field name="gender"/>
+                <filter name="filter_male" string="Male" domain="[('gender','=','male')]"/>
+                <separator/>
+                <filter name="filter_female" string="Female" domain="[('gender','=','female')]"/>
+                <separator/>
+                <filter name="filter_archive" string="Archived" domain="[('active','=',False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Gender" name="group_by_gender" context="{'group_by':'gender'}"/>
+                </group>
+                 <searchpanel>
+                          <field name="gender" icon="fa-users" select="multi" enable_counters="1"/>
+                 </searchpanel>
+            </search>
+
+        </field>
+    </record>
+
+    <record id="action_leasing_customer" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">leasing.customer</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="context">{}</field>
+        <!--        <field name="context">{'search_default_responsible_id': 1}</field>-->
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first customer!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_leasing_root"
+              name="Car Lease"
+              web_icon="static/description/icon.png"
+              sequence="10"/>
+
+    <menuitem id="menu_customer_root"
+              name="Customers"
+              parent="menu_leasing_root"
+              sequence="10"/>
+
+    <menuitem id="menu_customer"
+              name="Customers"
+              parent="menu_customer_root"
+              action="action_leasing_customer"
+              sequence="10"/>
+
+</odoo>

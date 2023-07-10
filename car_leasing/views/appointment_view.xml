@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_leasing_appointment_tree" model="ir.ui.view">
+        <field name="name">leasing.appointment.tree</field>
+        <field name="model">leasing.appointment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="customer_id"/>
+                <field name="ending_day"/>
+                <field name="starting_day"/>
+                <field name="car_id"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <record id="view_leasing_appointment_form" model="ir.ui.view">
+        <field name="name">leasing.appointment.form</field>
+        <field name="model">leasing.appointment</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="customer_id"/>
+                            <field name="ref"/>
+                            <field name="gender"/>
+                            <field name="starting_day"/>
+                        </group>
+                        <group>
+                            <field name="car_id"/>
+                            <field name="ending_day"/>
+                            <field name="days_in_total" string="Days in Total"/>
+                            <field name="price_total" string="Total Price"/>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes" name="notes">
+                            <field name="notes"/>
+                        </page>
+
+                    </notebook>
+                </sheet>
+                <!-- Chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="view_leasing_appointment_calendar" model="ir.ui.view">
+        <field name="name">leasing.appointment.calendar</field>
+        <field name="model">leasing.appointment</field>
+        <field name="arch" type="xml">
+            <calendar string="Appointment Calendar" date_start="starting_day" date_stop="ending_day" color="customer_id" mode="month"
+                      quick_add="False">
+                <field name="customer_id"/>
+                <field name="car_id"/>
+                <field name="starting_day"/>
+                <field name="ending_day"/>
+                <field name="days_in_total"/>
+                <field name="price_total"/>
+
+            </calendar>
+        </field>
+    </record>
+
+    <record id="view_leasing_car_appointment" model="ir.ui.view">
+        <field name="name">leasing.car.appointment</field>
+        <field name="model">leasing.appointment</field>
+        <field name="arch" type="xml">
+            <search>
+            </search>
+
+        </field>
+    </record>
+
+    <record id="action_leasing_appointment" model="ir.actions.act_window">
+        <field name="name">Appointment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">leasing.appointment</field>
+        <field name="view_mode">tree,form,calendar,graph</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first appointment!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_appointment_master"
+              name="Appointments"
+              parent="menu_leasing_root"
+              sequence="30"/>
+
+    <menuitem id="menu_appointment"
+              name="Appointment"
+              parent="menu_appointment_master"
+              action="action_leasing_appointment"
+              sequence="10"/>
+
+</odoo>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access.leasing.customer,access_leasing_customer,car_leasing.model_leasing_customer,base.group_user,1,1,1,1
+access.leasing.car,access_leasing_car,car_leasing.model_leasing_car,base.group_user,1,1,1,1
+access.leasing.appointment,access_leasing_appointment,car_leasing.model_leasing_appointment,base.group_user,1,1,1,1
